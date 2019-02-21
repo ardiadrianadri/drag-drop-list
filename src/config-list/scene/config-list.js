@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+import { ListConfigItems } from '../containers/list-config-items';
 
 export class ConfigList extends Component {
 
     render () {
         return (
             <div className="config-list">
-                <h1>This is the page where the list will be</h1>
+                <ListConfigItems />
             </div>
         );
     }
