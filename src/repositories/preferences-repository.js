@@ -1,22 +1,29 @@
 import { preferencesDatasource } from '../datasources/preferences-datasource';
 
 export const preferencesRepository = {
-    _setPrefernces (preferences) {
-        return preferences.map((preference) => {
-            if (preference.list) {
-                preference.list = this._setPrefernces(list);
-                preference.header = true;
-                preference.open = true;
-            }
+    _setPreferences (preference) {
+        preference.open = false;
 
-            return preference;
-        });
+        return preference;
     },
-    async findPreferences() {
-        const preferences = await preferencesDatasource.findPreferences();
-        return this._setPrefernces(preferences);
+
+    async getAllPreferences() {
+        const preferences = await preferencesDatasource.findPreferencesListById();
+
+        return preferences.map(this._setPreferences);
     },
-    async savePrefences(preferences) {
-        
+
+    async openItem(item) {
+        if (!item.list) {
+            item.list =  await preferencesDatasource.findPreferencesListById(item.id);
+        }
+
+        item.open = true;
+
+        return item;
+    },
+
+    closeItem(item) {
+        item.open = false;
     }
-}
+};
