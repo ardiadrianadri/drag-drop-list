@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import classNames from 'classnames';
+import { Item } from './item';
 import './item-list.scss';
 
 export class ItemList extends Component {
@@ -8,28 +8,67 @@ export class ItemList extends Component {
         super(props);
 
         this.state = {
-            open: false,
-            header: false,
+            items: [
+                {
+                    id: 0,
+                    icon: 'group',
+                    title: 'Must have',
+                    must: true,
+                    list: [
+                        {
+                            id: 1,
+                            icon: 'settings',
+                            title: 'CEO Full time'
+                        },
+                        {
+                            id: 2,
+                            icon: 'devices',
+                            title: '$1M <= Round < $10M'
+                        }
+                    ]
+                }
+            ]
+        };
+    }
+
+    renderList(item) {
+        let header = false;
+        let list = null;
+        let items = null;
+
+        const open = true;
+        if (item.list) {
+            header = true;
+            items = item.list.map((subitem) => {
+                return (
+                    <li className="item-bullet" key={subitem.id}>{this.renderList.call(this, subitem)}</li>
+                );
+            });
+
+            list = (
+                <ul className="list" key={item.id}>
+                    {items}
+                </ul>
+            );
         }
-    }
-
-    componentDidMount() {
-        this.setState({open: !!this.props.open });
-        this.setState({header: !!this.props.header})
-    }
-
-    handleExpand() {
-        this.setState({ open: !this.state.open });
+        
+        return (
+            <div className="group-list" key={item.id}>
+                <div className="header" key={item.id}>
+                    <Item key={item.id} open={open} header={header} title={item.title} icon={item.icon} must={!!item.must} />
+                </div>
+                <>
+                {list}
+                </>
+            </div>
+        );
     }
 
     render() {
         return (
-            <div className="item-list">
-                <span className="expand material-icons mr-3" onClick={this.handleExpand.bind(this)}>{(this.state.open) ? 'add' : 'remove' }</span>
-                <span className={classNames("icon", "material-icons", " mr-5", {"must": this.state.header})}>{this.props.icon}</span>
-                <span className="title">{this.props.title}</span>
-                <span className="menu material-icons ml-auto">more_vert</span>
-            </div>
+            <>
+                {this.state.items.map(this.renderList.bind(this))}
+            </>
         );
     }
 }

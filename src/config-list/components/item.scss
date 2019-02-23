@@ -1,0 +1,42 @@
+$actionIconsColor: #c1c1c1;
+
+.item {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    height: 50px;
+    background-color: #f3f3f4;
+    border: 1px dashed #e7eaec;
+    padding: 10px;
+    font-size: 15px;
+    line-height: 20px;
+    font-weight: 300;
+
+    &:hover {
+        font-weight: 500;
+    }
+    &:focus {
+        font-weight: 500;
+    }
+
+    .expand {
+        color: $actionIconsColor;
+        cursor: pointer;
+    }
+
+    .icon {
+        text-align: center;
+        color: white;
+        width: 35px;
+        height: 25px;
+        background-color: #f8ac59;
+        &.must {
+            background-color: #23c6c8;
+        }
+    }
+
+    .menu {
+        color: $actionIconsColor;
+        cursor: pointer;
+    }
+}

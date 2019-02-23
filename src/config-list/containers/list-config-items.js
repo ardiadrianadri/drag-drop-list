@@ -5,7 +5,7 @@ export class ListConfigItems extends Component {
     render() {
         return (
             <>
-                <ItemList open={true} icon="group" title="Must have" header="true"/>
+                <ItemList />
             </>
         );
     }
