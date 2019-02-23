@@ -1,40 +1,10 @@
-$actionIconsColor: #c1c1c1;
+.group-list {
+    .list {
+        list-style-type: none;
+        padding-left: 20px;
 
-.item-list {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    height: 50px;
-    background-color: #f3f3f4;
-    border: 1px dashed #e7eaec;
-    padding: 10px;
-    font-size: 15px;
-    line-height: 20px;
-    font-weight: 300;
-
-    &:hover {
-        font-weight: 500;
-    }
-    &:focus {
-        font-weight: 500;
-    }
-
-    .expand {
-        color: $actionIconsColor;
-    }
-
-    .icon {
-        text-align: center;
-        color: white;
-        width: 35px;
-        height: 25px;
-        background-color: #f8ac59;
-        &.must {
-            background-color: #23c6c8;
+        .item-bullet {
+            margin: 5px 0px;
         }
-    }
-
-    .menu {
-        color: $actionIconsColor;
     }
 }
