@@ -7,7 +7,7 @@ export const preferencesRepository = {
         return preference;
     },
 
-    async getAllPreferences() {
+    async getRootLevel() {
         const preferences = await preferencesDatasource.findPreferencesListById();
 
         return preferences.map(this._setPreferences);
@@ -21,9 +21,5 @@ export const preferencesRepository = {
         item.open = true;
 
         return item;
-    },
-
-    closeItem(item) {
-        item.open = false;
     }
 };
