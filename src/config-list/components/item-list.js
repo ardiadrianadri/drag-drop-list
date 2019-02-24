@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Collapse } from 'reactstrap';
 import { Item } from './item';
 import './item-list.scss';
 
@@ -7,32 +8,11 @@ export class ItemList extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            items: [
-                {
-                    id: 0,
-                    icon: 'group',
-                    title: 'Must have',
-                    must: true,
-                    list: [
-                        {
-                            id: 1,
-                            icon: 'settings',
-                            title: 'CEO Full time'
-                        },
-                        {
-                            id: 2,
-                            icon: 'devices',
-                            title: '$1M <= Round < $10M'
-                        }
-                    ]
-                }
-            ]
-        };
+        props.initList();
     }
 
-    componentDidMount() {
-        this.props.initList();
+    componentWillReceiveProps(nextProps) {
+        console.log(nextProps);
     }
 
     renderList(item) {
@@ -68,9 +48,9 @@ export class ItemList extends Component {
                     closeItem={this.props.closeItem}
                     />
                 </div>
-                <>
+                <Collapse isOpen={item.open}>
                 {list}
-                </>
+                </Collapse>
             </div>
         );
     }

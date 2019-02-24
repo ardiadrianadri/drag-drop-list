@@ -1,9 +1,9 @@
 import { defaultStore } from './default-state';
 import { GET_ROOT_LEVEL_LOADING, GET_ROOT_LEVEL_FINISH, GET_ROOT_LEVEL_ERROR, OPEN_ITEM_LOADING, OPEN_ITEM_FINISH, OPEN_ITEM_ERROR, CLOSE_ITEM_ACTION } from '../actions';
-import { findPreference } from '../tools';
+import { findPreference, deepCoppy } from '../tools';
 
 export function reducer (state = defaultStore, action) {
-  const newState = Object.assign({}, state);
+  let newState = Object.assign({}, state);
 
   let oldItem = null;
   let item = null;
@@ -42,6 +42,8 @@ export function reducer (state = defaultStore, action) {
       );
 
       item.open = false;
+
+      newState.listPreferences.preferences = deepCoppy(newState.listPreferences.preferences);
     break;
     default:
       return state;
