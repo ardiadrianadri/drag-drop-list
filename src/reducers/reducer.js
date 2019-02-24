@@ -1,5 +1,14 @@
 import { defaultStore } from './default-state';
-import { GET_ROOT_LEVEL_LOADING, GET_ROOT_LEVEL_FINISH, GET_ROOT_LEVEL_ERROR, OPEN_ITEM_LOADING, OPEN_ITEM_FINISH, OPEN_ITEM_ERROR, CLOSE_ITEM_ACTION } from '../actions';
+import {
+  GET_ROOT_LEVEL_LOADING,
+  GET_ROOT_LEVEL_FINISH,
+  GET_ROOT_LEVEL_ERROR,
+  OPEN_ITEM_LOADING,
+  OPEN_ITEM_FINISH,
+  OPEN_ITEM_ERROR,
+  CLOSE_ITEM_ACTION,
+  DRAG_START
+} from '../actions';
 import { findPreference, deepCoppy } from '../tools';
 
 export function reducer (state = defaultStore, action) {
@@ -45,6 +54,15 @@ export function reducer (state = defaultStore, action) {
 
       newState.listPreferences.preferences = deepCoppy(newState.listPreferences.preferences);
     break;
+    case DRAG_START:
+        item = findPreference(
+          newState.listPreferences.preferences,
+          action.payload.id
+        );
+
+        item.dragOver = true;
+
+        newState.listPreferences.preferences = deepCoppy(newState.listPreferences.preferences);
     default:
       return state;
   }

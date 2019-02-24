@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { ItemList } from '../components/item-list';
-import { fetchRootPreferences, fetchOpenItem, closeItemAction } from '../../actions';
+import { fetchRootPreferences, fetchOpenItem, closeItemAction, dragStartAction } from '../../actions';
 
 class ListConfigItems extends Component {
 
@@ -24,6 +24,7 @@ class ListConfigItems extends Component {
                     initList={this.props.initList}
                     openItem={this.props.openItem}
                     closeItem={this.props.closeItem}
+                    dragOver={this.props.dragOver}
                 />
             </>
         );
@@ -42,7 +43,8 @@ function mapDispatchToProps (dispatch) {
     return {
         initList: () => { dispatch(fetchRootPreferences()); },
         openItem: (elementId) => { dispatch(fetchOpenItem(elementId)); },
-        closeItem: (elementId) => { dispatch(closeItemAction(elementId)); }
+        closeItem: (elementId) => { dispatch(closeItemAction(elementId)); },
+        dragOver: (elementId) => { dispatch(dragStartAction(elementId)); }
     }
 }
 

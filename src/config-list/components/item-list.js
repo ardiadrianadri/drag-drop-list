@@ -8,6 +8,7 @@ export class ItemList extends Component {
     constructor(props) {
         super(props);
 
+        this._itemHeight = 50;
         props.initList();
     }
 
