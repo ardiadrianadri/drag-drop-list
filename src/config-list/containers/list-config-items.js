@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 
 import { ItemList } from '../components/item-list';
 import { fetchRootPreferences, fetchOpenItem, closeItemAction } from '../../actions';
+import { CardContainer } from '../components/card-container';
+import { numberItems } from '../../tools';
 
 class ListConfigItems extends Component {
 
@@ -18,14 +20,14 @@ class ListConfigItems extends Component {
 
     render() {
         return (
-            <>
+            <CardContainer title={'Screening Criteria'} subTitle={'Adapt your screening criteria and our algorithm will learn from it.'}>
                 <ItemList
                     preferences={this.props.preferences}
                     initList={this.props.initList}
                     openItem={this.props.openItem}
                     closeItem={this.props.closeItem}
                 />
-            </>
+            </CardContainer>
         );
     }
 }
