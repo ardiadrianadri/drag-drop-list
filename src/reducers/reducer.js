@@ -1,28 +1,11 @@
 import { defaultStore } from './default-state';
 import { GET_ROOT_LEVEL_LOADING, GET_ROOT_LEVEL_FINISH, GET_ROOT_LEVEL_ERROR, OPEN_ITEM_LOADING, OPEN_ITEM_FINISH, OPEN_ITEM_ERROR, CLOSE_ITEM_ACTION } from '../actions';
-
-function findPreference(preferences, id) {
-  const leng = preferences.length;
-
-  let preference = null;
-  let index = 0;
-
-  while ((!preference) && (index < leng)) {
-    if ( preferences[index].id === id ) {
-      preference = preferences[index];
-    } else if (preferences[index].list) {
-      preference = findPreference(preferences[index].list, id);
-    }
-
-    index ++;
-  }
-
-  return preference;
-}
+import { findPreference } from '../tools';
 
 export function reducer (state = defaultStore, action) {
-  const newState = {...state};
+  const newState = Object.assign({}, state);
 
+  let oldItem = null;
   let item = null;
 
   switch (action.type) {
@@ -42,16 +25,11 @@ export function reducer (state = defaultStore, action) {
     break;
     case OPEN_ITEM_FINISH:
       newState.listPreferences.loading = false;
-      item = findPreference(
-        newState.listPreferences.preferences,
-        action.payload.id
-      );
+      oldItem = findPreference(newState.listPreferences.preferences, action.payload.item.id);
 
-      if (action.payload.preferences) {
-        item.list = [...action.payload.preference];
-      }
+      oldItem = Object.assign({}, action.payload.item);
 
-      item.open=true;
+      oldItem.open=true;
     break;
     case OPEN_ITEM_ERROR:
       newState.listPreferences.loading = false;

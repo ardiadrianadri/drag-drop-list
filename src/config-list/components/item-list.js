@@ -58,6 +58,7 @@ export class ItemList extends Component {
                 <div className="header" key={item.id}>
                     <Item
                     key={item.id}
+                    id={item.id}
                     open={item.open}
                     header={item.header}
                     title={item.title}

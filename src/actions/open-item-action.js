@@ -1,4 +1,5 @@
 import { preferencesRepository } from '../repositories/preferences-repository';
+import { findPreference } from '../tools';
 
 export const OPEN_ITEM_LOADING = 'OPEN_ITEM_LOADING';
 export const OPEN_ITEM_FINISH = 'OPEN_ITEM_FINISH';
@@ -10,11 +11,11 @@ export function openItemLoadingAction() {
   };
 }
 
-export function openItemFinishAction(id, preferences) {
+export function openItemFinishAction(item, preferences) {
   const action = {
     type: OPEN_ITEM_FINISH,
     payload: {
-      id: id
+      item: item
     }
   };
 
@@ -35,12 +36,15 @@ export function openItemErrorAction (error) {
 }
 
 export function fetchOpenItem (id) {
-  return function (dispatch) {
+  return function (dispatch, getState) {
     dispatch(openItemLoadingAction());
 
-    return preferencesRepository.openItem(id)
+    const preferences = getState().listPreferences.preferences;
+    const item = findPreference(preferences, id);
+
+    return preferencesRepository.openItem(item)
     .then((preferences) => {
-      dispatch(openItemFinishAction(id, preferences));
+      dispatch(openItemFinishAction(item, preferences));
     })
     .catch((error) => {
       dispatch(openItemErrorAction(error))
