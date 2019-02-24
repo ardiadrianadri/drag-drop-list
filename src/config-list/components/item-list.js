@@ -11,10 +11,6 @@ export class ItemList extends Component {
         props.initList();
     }
 
-    componentWillReceiveProps(nextProps) {
-        console.log(nextProps);
-    }
-
     renderList(item) {
         let items;
         let list;
