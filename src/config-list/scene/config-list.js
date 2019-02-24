@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ListConfigItems } from '../containers/list-config-items';
+import ListConfigItems from '../containers/list-config-items';
 
 export class ConfigList extends Component {
 

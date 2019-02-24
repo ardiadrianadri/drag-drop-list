@@ -111,7 +111,8 @@ export const preferencesDatasource = {
       id: item.id,
       icon: item.icon,
       title: item.title,
-      header: !!item.header
+      header: !!item.header,
+      must: !!item.must
     };
   },
 

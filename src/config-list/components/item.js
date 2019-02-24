@@ -19,7 +19,13 @@ export class Item extends Component {
     }
 
     handleExpand() {
-        this.setState({ open: !this.state.open });
+        this.setState({ open: !this.state.open }, () => {
+            if (this.state.open) {
+                this.props.openItem(this.props.id);
+            } else {
+                this.props.closeItem(this.props.id);
+            }
+        });
     }
 
     handleKeyExpand (event) {

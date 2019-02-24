@@ -20,6 +20,6 @@ export const preferencesRepository = {
 
         item.open = true;
 
-        return item;
+        return Object.assign({},item);
     }
 };

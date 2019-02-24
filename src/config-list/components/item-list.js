@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Collapse } from 'reactstrap';
 import { Item } from './item';
 import './item-list.scss';
 
@@ -7,38 +8,18 @@ export class ItemList extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            items: [
-                {
-                    id: 0,
-                    icon: 'group',
-                    title: 'Must have',
-                    must: true,
-                    list: [
-                        {
-                            id: 1,
-                            icon: 'settings',
-                            title: 'CEO Full time'
-                        },
-                        {
-                            id: 2,
-                            icon: 'devices',
-                            title: '$1M <= Round < $10M'
-                        }
-                    ]
-                }
-            ]
-        };
+        props.initList();
+    }
+
+    componentWillReceiveProps(nextProps) {
+        console.log(nextProps);
     }
 
     renderList(item) {
-        let header = false;
-        let list = null;
-        let items = null;
-
-        const open = true;
+        let items;
+        let list;
+        
         if (item.list) {
-            header = true;
             items = item.list.map((subitem) => {
                 return (
                     <li className="item-bullet" key={subitem.id}>{this.renderList.call(this, subitem)}</li>
@@ -55,11 +36,21 @@ export class ItemList extends Component {
         return (
             <div className="group-list" key={item.id}>
                 <div className="header" key={item.id}>
-                    <Item key={item.id} open={open} header={header} title={item.title} icon={item.icon} must={!!item.must} />
+                    <Item
+                    key={item.id}
+                    id={item.id}
+                    open={item.open}
+                    header={item.header}
+                    title={item.title}
+                    icon={item.icon}
+                    must={!!item.must}
+                    openItem={this.props.openItem}
+                    closeItem={this.props.closeItem}
+                    />
                 </div>
-                <>
+                <Collapse isOpen={item.open}>
                 {list}
-                </>
+                </Collapse>
             </div>
         );
     }
@@ -67,7 +58,7 @@ export class ItemList extends Component {
     render() {
         return (
             <>
-                {this.state.items.map(this.renderList.bind(this))}
+                {this.props.preferences.map(this.renderList.bind(this))}
             </>
         );
     }
