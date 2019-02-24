@@ -31,14 +31,15 @@ export class ItemList extends Component {
         };
     }
 
-    renderList(item) {
-        let header = false;
-        let list = null;
-        let items = null;
+    componentDidMount() {
+        this.props.initList();
+    }
 
-        const open = true;
+    renderList(item) {
+        let items;
+        let list;
+        
         if (item.list) {
-            header = true;
             items = item.list.map((subitem) => {
                 return (
                     <li className="item-bullet" key={subitem.id}>{this.renderList.call(this, subitem)}</li>
@@ -55,7 +56,16 @@ export class ItemList extends Component {
         return (
             <div className="group-list" key={item.id}>
                 <div className="header" key={item.id}>
-                    <Item key={item.id} open={open} header={header} title={item.title} icon={item.icon} must={!!item.must} />
+                    <Item
+                    key={item.id}
+                    open={item.open}
+                    header={item.header}
+                    title={item.title}
+                    icon={item.icon}
+                    must={!!item.must}
+                    openItem={this.props.openItem}
+                    closeItem={this.props.closeItem}
+                    />
                 </div>
                 <>
                 {list}
@@ -67,7 +77,7 @@ export class ItemList extends Component {
     render() {
         return (
             <>
-                {this.state.items.map(this.renderList.bind(this))}
+                {this.props.preferences.map(this.renderList.bind(this))}
             </>
         );
     }
