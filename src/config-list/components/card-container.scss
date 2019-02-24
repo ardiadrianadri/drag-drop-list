@@ -1,0 +1,27 @@
+$inbox-padding: 15px;
+$inbox-color: #676a6c;
+
+.inbox {
+  max-width: 700px;
+  background-color: white;
+  min-height: 700px;
+
+  .inbox-title {
+    font-size: 14px;
+    border-bottom: solid 2px #e7eaec;
+    max-height: 48px;
+    padding: $inbox-padding;
+    font-weight: 600;
+    color: $inbox-color;
+  }
+
+  .inbox-body {
+    padding: $inbox-padding;
+
+    .inbox-subtitle {
+      margin-bottom: 30px;
+      color: $inbox-color;
+      font-size: 13px;
+    }
+  }
+}
