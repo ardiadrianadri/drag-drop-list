@@ -10,6 +10,12 @@ class ListConfigItems extends Component {
         super(props);
     }
 
+    componentWillReceiveProps(newProps) {
+        if (newProps.loading !==  this.props.loading) {
+            this.props.eventLoading(newProps.loading);
+        }
+    }
+
     render() {
         return (
             <>
